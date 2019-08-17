@@ -45,9 +45,7 @@ def valid_proof(last_hash, proof):
     proof_guess = f"{proof}".encode()
     proof_hash = hashlib.sha256(proof_guess).hexdigest()
 
-    beg_new_hash = proof_hash[:6]
-
-    if beg_new_hash == last_proof_hash[-6:]:
+    if proof_hash[:6] == last_proof_hash[-6:]:
         return True
     else:
         return False
