@@ -9,11 +9,10 @@ from timeit import default_timer as timer
 
 import random
 
-
 def proof_of_work(last_proof):
     """
     Multi-Ouroboros of Work Algorithm
-    - Find a number p' such that the last six digits of hash(p) are equal
+    - Find a number p' such that the last six digitof_work(ls of hash(p) are equal
     to the first six digits of hash(p')
     - IE:  last_hash: ...999123456, new hash 123456888...
     - p is the previous proof, and p' is the new proof
@@ -24,6 +23,8 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
+    while valid_proof(last_proof, proof) is False:
+        proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -38,6 +39,18 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
+    guess = f'{proof}'.encode()
+    prevGuess = f'{last_hash}'.encode()
+    hash_proof = hashlib.sha256(guess).hexdigest()
+    last_hash_proof = hashlib.sha256(prevGuess).hexdigest()
+         
+    end = last_hash_proof[-6:]
+    beg = hash_proof[0:6]
+    #print(beg, "-", end)
+    if beg == end:
+        return True
+    else: 
+        return False
     pass
 
 
