@@ -4,7 +4,17 @@ def get_new_value(old_gen, old_automata):
     # TBC - add code to generate the next row of cells,
     # then replace the return statement below to
     # return the updated automata
-    return old_automata
+    next_automata = old_automata[:]
+    for i in range(len(old_automata)-49):
+        print(i)
+        left = i -1
+        right = i + 1
+        sum = old_automata[left] + old_automata[right]+ old_automata[i]
+        if sum == 0 or sum == 3:
+            next_automata[i+49] = 0
+        else:
+            next_automata[i+49] = 1
+    return next_automata
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)
