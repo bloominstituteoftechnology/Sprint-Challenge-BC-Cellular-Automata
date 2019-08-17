@@ -1,10 +1,31 @@
 import pygame, random
 
-def get_new_value(old_gen, old_automata):
+def get_new_value(prev_gen, prev_automata):
     # TBC - add code to generate the next row of cells,
     # then replace the return statement below to
     # return the updated automata
-    return old_automata
+
+    # make a copy of prev state
+    copy = prev_automata
+
+    for i, val in enumerate(prev_automata):
+        width = 20
+        n = i - 1
+        nw = n - width
+        ne = n + width
+
+        # rules if all three cells above are all alive or all dead
+        # current cell should be dead, else it's alive
+        try:
+            print(f"index: {i} north: {prev_automata[n]}, nw: {prev_automata[nw]}, ne {prev_automata[ne]}")
+            if prev_automata[n] == prev_automata[nw] == prev_automata[ne]:
+                copy[i] = 0
+            else:
+                copy[i] = 1
+        except:
+            pass
+
+    return copy
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)
@@ -23,7 +44,7 @@ size = (WIN_SIZE, WIN_SIZE + BTN_SIZE+ 20)
 screen = pygame.display.set_mode(size)
 automata = [0] * (SQ_NUM*SQ_NUM)
 generations = 0
-time_step = 5
+time_step = 1
 running = True
 
 # Assign middle of first row to 1

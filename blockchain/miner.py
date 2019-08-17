@@ -20,12 +20,10 @@ def proof_of_work(last_proof):
 
     start = timer()
 
-    print("Searching for next proof...")
-    proof = random.randrange(0, last_proof[-6:])
-    print(last_proof[-6:])
+    proof = random.randrange(0, 9999999999)
     #  TODO: Your code here
     while not valid_proof(last_proof, proof):
-        proof = random.randrange(0, last_proof[-6:])
+        proof += 1
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -37,15 +35,19 @@ def valid_proof(last_hash, proof):
     the last hash match the first six characters of the proof?
 
     IE:  last_hash: ...999123456, new hash 123456888...
+
+    last six digits of hash(last_proof) and the first six digits of hash(new_proof)
     """
 
     # TODO: Your code here!
-    guess = f"{last_hash}{proof}".encode()
-    guess_hash = hashlib.sha256(guess).hexdigest()
+    last_proof = f"{last_hash}".encode()
+    last_proof_hash = hashlib.sha256(last_proof).hexdigest()
+    proof_guess = f"{proof}".encode()
+    proof_hash = hashlib.sha256(proof_guess).hexdigest()
 
-    beg_new_hash = guess_hash[:6]
+    beg_new_hash = proof_hash[:6]
 
-    if beg_new_hash == last_hash[-6:]:
+    if beg_new_hash == last_proof_hash[-6:]:
         return True
     else:
         return False
