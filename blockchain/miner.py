@@ -39,13 +39,14 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    # guess = f'{proof}'.encode()
-    # prevGuess = f'{last_hash}'.encode()
-    # hash_proof = hashlib.sha256(guess).hexdigest()
-    # last_hash_proof = hashlib.sha256(prevGuess).hexdigest()
-    #print(last_hash, "hash_proof", proof)     
-    end = int(str(last_hash)[-6:])
-    beg = int(str(proof)[0:6])
+    guess = f'{proof}'.encode()
+    prevGuess = f'{last_hash}'.encode()
+    hash_proof = hashlib.sha256(guess).hexdigest()
+    last_hash_proof = hashlib.sha256(prevGuess).hexdigest()
+         
+    end = last_hash_proof[-6:]
+    beg = hash_proof[0:6]
+    #print(beg, "-", end)
     if beg == end:
         return True
     else: 
