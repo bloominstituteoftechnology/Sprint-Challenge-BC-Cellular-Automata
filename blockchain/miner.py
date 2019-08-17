@@ -1,4 +1,5 @@
 import hashlib
+import random
 import requests
 
 import sys
@@ -6,8 +7,6 @@ import sys
 from uuid import uuid4
 
 from timeit import default_timer as timer
-
-import random
 
 
 def proof_of_work(last_proof):
@@ -21,9 +20,12 @@ def proof_of_work(last_proof):
 
     start = timer()
 
-    print("Searching for next proof")
-    proof = 0
+    print("Searching for next proof...")
+    proof = random.randrange(0, last_proof[-6:])
+    print(last_proof[-6:])
     #  TODO: Your code here
+    while not valid_proof(last_proof, proof):
+        proof = random.randrange(0, last_proof[-6:])
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -38,7 +40,15 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
-    pass
+    guess = f"{last_hash}{proof}".encode()
+    guess_hash = hashlib.sha256(guess).hexdigest()
+
+    beg_new_hash = guess_hash[:6]
+
+    if beg_new_hash == last_hash[-6:]:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
