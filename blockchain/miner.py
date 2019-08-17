@@ -22,10 +22,23 @@ def proof_of_work(last_proof):
     start = timer()
 
     print("Searching for next proof")
-    proof = 0
+    
+    Partial_proof = random.randint(100000, 999999)
+    front_proof = random.randint(1000000000000,9999999999999)
+    fullProof = str(front_proof) + str(Partial_proof)
+    proof = int(fullProof)
+    
+
     #  TODO: Your code here
+    while valid_proof(last_proof, proof) == True:
+        proof = random.randint(0, 9999999999999999999)
+        # proof = 694204
+
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
+    
+  
+
     return proof
 
 
@@ -38,6 +51,27 @@ def valid_proof(last_hash, proof):
     """
 
     # TODO: Your code here!
+    print(last_hash)
+    print(proof)
+    stringHash = str(last_hash)
+    print(len(stringHash[0:3]))
+    length_hash = len(str(last_hash))
+    print(length_hash)
+    length_hash_six = length_hash - 6
+    print(str(length_hash-5))
+    string_proof = str(proof)
+    
+    last_six_hash = stringHash[int(length_hash)-6: int(length_hash)]
+    print(last_six_hash)
+    first_six_proof = string_proof[0:6]
+
+    if last_six_hash == first_six_proof:
+        return True
+    else:
+        return False
+
+
+
     pass
 
 

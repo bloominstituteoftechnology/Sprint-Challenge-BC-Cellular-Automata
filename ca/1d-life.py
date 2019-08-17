@@ -1,9 +1,30 @@
 import pygame, random
 
 def get_new_value(old_gen, old_automata):
-    # TBC - add code to generate the next row of cells,
-    # then replace the return statement below to
-    # return the updated automata
+
+    print(old_gen)
+    # print(old_automata)
+    # if old_gen == 0:
+    #     old_automata[72] = 1
+    # old_automata[73] = 1
+    #     old_automata[74] = 1
+        
+    for i in range(len(old_automata)-1):
+        if old_automata[i + 1] == 1:
+            old_automata[72] = 1
+        if old_automata[i] & old_automata[i + 1] == 1:
+            old_automata[i] = 1
+        if old_automata[i - 1] == 1:
+            old_automata[i] = 1
+        
+             
+
+    # I know it needs to loop through the items in the list. I am not sure what
+    # equation will find the exact length to wrap to the exact location under the 
+    # location that the if statement is looking at. 
+
+
+
     return old_automata
 
 # Define some colors and other constants
