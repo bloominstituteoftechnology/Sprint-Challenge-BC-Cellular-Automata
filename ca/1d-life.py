@@ -6,26 +6,29 @@ def get_new_value(prev_gen, prev_automata):
     # return the updated automata
 
     # make an empty copy of the automata
-    copy = [0] * (SQ_NUM*SQ_NUM)
+    copy = prev_automata
 
-    for i, val in enumerate(prev_automata):
-        width = 20
-        n = i - 1
-        nw = n - width
-        ne = n + width
+    for i in range(len(copy)):
+        w = i - 1
+        e = i + 1
+        s = i + SQ_NUM
 
-        #first round index 25 = 1
-        #second round index 
-        
-        # rules if all three cells above are all alive or all dead
-        # current cell should be dead, else it's alive
-        try:
-            if prev_automata[n] == prev_automata[nw] == prev_automata[ne]:
-                copy[i] = 0
-            else:
-                copy[i] = 1
-        except:
-            pass
+        if prev_automata[i] == 0:
+            try:
+                if prev_automata[w] == prev_automata[e] == 0:
+                    copy[s] = 0
+                else:
+                    copy[s] = 1
+            except:
+                pass
+        else: 
+            try:
+                if prev_automata[w] == prev_automata[e] == 1:
+                    copy[s] = 0
+                else:
+                    copy[s] = 1
+            except:
+                pass
 
     return copy
 
@@ -46,7 +49,7 @@ size = (WIN_SIZE, WIN_SIZE + BTN_SIZE+ 20)
 screen = pygame.display.set_mode(size)
 automata = [0] * (SQ_NUM*SQ_NUM)
 generations = 0
-time_step = 5
+time_step = 1
 running = True
 
 # Assign middle of first row to 1
