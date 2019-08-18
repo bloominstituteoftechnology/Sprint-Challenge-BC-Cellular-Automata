@@ -6,29 +6,51 @@ def get_new_value(prev_gen, prev_automata):
     # return the updated automata
 
     # make an empty copy of the automata
-    copy = prev_automata
+    copy = [0] * (SQ_NUM*SQ_NUM)
+    # copy = prev_automata
 
     for i in range(len(copy)):
-        w = i - 1
-        e = i + 1
-        s = i + SQ_NUM
+        n = i - SQ_NUM
+        nw = n - 1
+        ne = n + 1
 
-        if prev_automata[i] == 0:
+        limit = prev_gen + 1 * SQ_NUM
+
+        if i <= prev_gen * SQ_NUM:
+            copy[i] = prev_automata[i]
+        elif prev_automata[i] == 0:
             try:
-                if prev_automata[w] == prev_automata[e] == 0:
-                    copy[s] = 0
+                if prev_automata[n] + prev_automata[nw] + prev_automata[ne] > 2 or prev_automata[n] + prev_automata[nw] + prev_automata[ne] == 0:
+                    copy[i] = 0
                 else:
-                    copy[s] = 1
+                    copy[i] = 1
             except:
                 pass
-        else: 
-            try:
-                if prev_automata[w] == prev_automata[e] == 1:
-                    copy[s] = 0
+        elif prev_automata[i] == 1:
+            try: 
+                if prev_automata[n] + prev_automata[nw] + prev_automata[ne] > 0 or prev_automata[n] + prev_automata[nw] + prev_automata[ne] < 3:
+                    copy[i] = 1
                 else:
-                    copy[s] = 1
+                    copy[i] = 0
             except:
                 pass
+
+        # if prev_automata[i] == 0:
+        #     try:
+        #         if prev_automata[w] == prev_automata[e] == 0:
+        #             copy[s] = 0
+        #         else:
+        #             copy[s] = 1
+        #     except:
+        #         pass
+        # else: 
+        #     try:
+        #         if prev_automata[w] == prev_automata[e] == 1:
+        #             copy[s] = 0
+        #         else:
+        #             copy[s] = 1
+        #     except:
+        #         pass
 
     return copy
 
