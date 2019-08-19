@@ -24,7 +24,6 @@ def proof_of_work(last_proof):
     print("Searching for next proof")
     proof = 0
     last_hash = hashlib.sha256(f'{last_proof}'.encode()).hexdigest()
-    print(f"Last hash: {last_hash}")
 
     while valid_proof(last_hash, proof) is False:
         proof += 1
@@ -47,7 +46,6 @@ def valid_proof(last_hash, proof):
 
     # Check if the last 6 digits of previous is equal to first 6 of current guess
     if last_hash[-6:] == guess_hash[:6]:
-        print(f"New hash: {guess_hash}")
         return True
 
     return False
