@@ -4,7 +4,61 @@ def get_new_value(old_gen, old_automata):
     # TBC - add code to generate the next row of cells,
     # then replace the return statement below to
     # return the updated automata
-    return old_automata
+    # automata = get_new_value(generations-1, automata)
+
+    # If each row = 50 cells (0-49) and generations start at 1
+    # 1: 0-49
+    # 2: 50-99
+    # 3: 100-149
+    
+    automata = old_automata.copy()
+    new_automata = []
+
+    for i in range(old_gen + 1):
+        print(f"Working on row {i}:")
+        working_row = automata[0:SQ_NUM]
+        print(working_row)
+        # Add this row to the new list
+        new_automata += working_row
+
+        if i == old_gen:
+            # Calculate new row
+            print("i = old_gen")
+            new_automata += get_new_row(working_row)
+
+        # Delete the row 
+        del automata[0:SQ_NUM]
+
+    # Add the remaining rows to the end
+    new_automata += automata
+    exit()
+    return new_automata
+
+
+def get_new_row(row):
+    # Calculate the new row based on Wolfram's Rule 126
+    # ...  ..#  .#.  .##  #..  #.#  ##.  ###     <- this pattern
+    #  .    #    #    #    #    #    #    .      <- produces this result
+
+    new_row = [0] * SQ_NUM
+
+    for i in range(len(row)):
+        neighbors = [i - 1, i, i + 1]
+        n = 0
+
+        for pos in neighbors:
+            try:
+                n += row[pos]
+            except:
+                n += 0
+
+        if n > 0 and n < 3:
+            new_row[i] = 1
+
+        i += 1
+    print(new_row)
+    return new_row
+
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)
