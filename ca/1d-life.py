@@ -15,15 +15,13 @@ def get_new_value(old_gen, old_automata):
     new_automata = []
 
     for i in range(old_gen + 1):
-        print(f"Working on row {i}:")
         working_row = automata[0:SQ_NUM]
-        print(working_row)
+        
         # Add this row to the new list
         new_automata += working_row
 
         if i == old_gen:
-            # Calculate new row
-            print("i = old_gen")
+            # Calculate new row & add to new list
             new_automata += get_new_row(working_row)
 
         # Delete the row 
@@ -31,7 +29,7 @@ def get_new_value(old_gen, old_automata):
 
     # Add the remaining rows to the end
     new_automata += automata
-    exit()
+    
     return new_automata
 
 
@@ -56,7 +54,7 @@ def get_new_row(row):
             new_row[i] = 1
 
         i += 1
-    print(new_row)
+    
     return new_row
 
 
