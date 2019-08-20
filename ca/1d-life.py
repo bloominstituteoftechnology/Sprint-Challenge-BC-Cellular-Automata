@@ -14,6 +14,7 @@ def get_new_value(prev_gen, prev_automata):
         nw = n - 1
         ne = n + 1
 
+        #image is skewed. Logic for edge cases needs to be added.
         limit = prev_gen + 1 * SQ_NUM
 
         if i <= prev_gen * SQ_NUM:
