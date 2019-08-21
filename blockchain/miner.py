@@ -25,7 +25,7 @@ def proof_of_work(last_proof):
     proof = 999
 
     while valid_proof(last_proof, proof) is False:
-        proof += 1
+        proof += 1000000000000
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
