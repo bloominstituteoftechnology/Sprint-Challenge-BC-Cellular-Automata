@@ -1,10 +1,59 @@
 import pygame, random
 
-def get_new_value(old_gen, old_automata):
+def get_new_value(prev_gen, prev_automata):
     # TBC - add code to generate the next row of cells,
     # then replace the return statement below to
     # return the updated automata
-    return old_automata
+
+    # make an empty copy of the automata
+    copy = [0] * (SQ_NUM*SQ_NUM)
+    # copy = prev_automata
+
+    for i in range(len(copy)):
+        n = i - SQ_NUM
+        nw = n - 1
+        ne = n + 1
+
+        #image is skewed. Logic for edge cases needs to be added.
+        limit = prev_gen + 1 * SQ_NUM
+
+        if i <= prev_gen * SQ_NUM:
+            copy[i] = prev_automata[i]
+        elif prev_automata[i] == 0:
+            try:
+                if prev_automata[n] + prev_automata[nw] + prev_automata[ne] > 2 or prev_automata[n] + prev_automata[nw] + prev_automata[ne] == 0:
+                    copy[i] = 0
+                else:
+                    copy[i] = 1
+            except:
+                pass
+        elif prev_automata[i] == 1:
+            try: 
+                if prev_automata[n] + prev_automata[nw] + prev_automata[ne] > 0 or prev_automata[n] + prev_automata[nw] + prev_automata[ne] < 3:
+                    copy[i] = 1
+                else:
+                    copy[i] = 0
+            except:
+                pass
+
+        # if prev_automata[i] == 0:
+        #     try:
+        #         if prev_automata[w] == prev_automata[e] == 0:
+        #             copy[s] = 0
+        #         else:
+        #             copy[s] = 1
+        #     except:
+        #         pass
+        # else: 
+        #     try:
+        #         if prev_automata[w] == prev_automata[e] == 1:
+        #             copy[s] = 0
+        #         else:
+        #             copy[s] = 1
+        #     except:
+        #         pass
+
+    return copy
 
 # Define some colors and other constants
 BLACK = (0, 0, 0)
@@ -23,7 +72,7 @@ size = (WIN_SIZE, WIN_SIZE + BTN_SIZE+ 20)
 screen = pygame.display.set_mode(size)
 automata = [0] * (SQ_NUM*SQ_NUM)
 generations = 0
-time_step = 5
+time_step = 1
 running = True
 
 # Assign middle of first row to 1
