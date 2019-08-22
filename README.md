@@ -1,4 +1,4 @@
-# Sprint-Challenge-Blockchain-Cellular-Automata
+# Sprint-Challenge-Blockchain-Cellular-Automata - A. Franklin
 
 
 This challenge allows you to practice the concepts and techniques learned over the past week and apply them in a concrete project. This Sprint, we were introduced to the fascinating world of blockchains and continued honing our algorithmic, problem-solving skills by implementing a well-known simulation - Conway's Game of Life. In your challenge this week, you will demonstrate proficiency by adding another key feature to your blockchain and completing a variant of Conway's Game of Life.
